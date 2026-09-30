@@ -1,9 +1,9 @@
 /**
- * Freefire.vip - Ultra Simple High-Converting CPA Generator Logic
+ * Freefire.vip - Ultra-Easy 1-Screen Generator & Live Verification Engine
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Theme Switcher Logic ---
+    // --- 1. Theme Switcher Logic ---
     const themeToggleBtn = document.getElementById('themeToggleBtn');
     
     const initTheme = () => {
@@ -28,152 +28,184 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initTheme();
 
-    // --- State Variables ---
+    // --- 2. State Variables ---
     let playerID = '';
     let selectedDevice = 'Android';
     let selectedDiamonds = '10,800';
 
-    // --- Global AdBlueMedia Completion Callback ---
-    window.xfComplete = function() {
-        console.log("AdBlueMedia Locker Completed Successfully!");
-        goToStep(5);
-    };
-    window.CPABuildComplete = function() {
-        console.log("AdBlueMedia CPABuild Locker Completed!");
-        goToStep(5);
-    };
-
-    // --- Wizard Steps Navigation ---
-    const wizardSteps = document.querySelectorAll('.wizard-step');
-    const stepIndicators = document.querySelectorAll('#indStep1, #indStep2, #indStep3, #indStep4, #indStep5');
-    
+    // --- 3. DOM Elements ---
     const inputPlayerID = document.getElementById('playerIdInput');
-    const btnNextStep1 = document.getElementById('btnNextStep1');
-    const btnStartGenerator = document.getElementById('btnStartGenerator');
+    const idStatusIcon = document.getElementById('idStatusIcon');
+    const deviceCards = document.querySelectorAll('.device-card');
+    const packageCards = document.querySelectorAll('.package-card');
+    const btnInstantGenerate = document.getElementById('btnInstantGenerate');
+
+    // Modal Elements
+    const generatorModal = document.getElementById('generatorModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalProcessingView = document.getElementById('modalProcessingView');
+    const modalErrorCard = document.getElementById('modalErrorCard');
+    const modalSuccessScreen = document.getElementById('modalSuccessScreen');
+    const modalTerminalBox = document.getElementById('modalTerminalBox');
+    const modalProgressBarFill = document.getElementById('modalProgressBarFill');
+    const modalProgressPercent = document.getElementById('modalProgressPercent');
+    const processTitle = document.getElementById('processTitle');
+    const processDesc = document.getElementById('processDesc');
+    const lockedDiamondCount = document.getElementById('lockedDiamondCount');
+    const lockedPlayerId = document.getElementById('lockedPlayerId');
+
     const btnTriggerLocker = document.getElementById('btnTriggerLocker');
+    const myLocker = document.getElementById('my-locker');
     const btnVerifyOffers = document.getElementById('btnVerifyOffers');
     const btnResetGenerator = document.getElementById('btnResetGenerator');
 
-    const terminalProcessingView = document.getElementById('terminalProcessingView');
-    const serverErrorCard = document.getElementById('serverErrorCard');
-    const terminalBox = document.getElementById('terminalBox');
-    const progressBarFill = document.getElementById('progressBarFill');
-    const progressPercent = document.getElementById('progressPercent');
-
-    const goToStep = (stepNumber) => {
-        wizardSteps.forEach((step, idx) => {
-            if (idx + 1 === stepNumber) {
-                step.classList.add('active');
+    // --- 4. Interactive Live Feedback on Player ID Input ---
+    if (inputPlayerID && idStatusIcon) {
+        inputPlayerID.addEventListener('input', () => {
+            const val = inputPlayerID.value.trim();
+            if (val.length >= 6) {
+                idStatusIcon.textContent = '✅';
+                idStatusIcon.style.color = '#16A34A';
             } else {
-                step.classList.remove('active');
+                idStatusIcon.textContent = '🆔';
+                idStatusIcon.style.color = '';
             }
         });
+    }
 
-        stepIndicators.forEach((ind, idx) => {
-            const stepNum = idx + 1;
-            ind.classList.remove('active', 'completed');
-            if (stepNum === stepNumber) {
-                ind.classList.add('active');
-            } else if (stepNum < stepNumber) {
-                ind.classList.add('completed');
-                ind.textContent = '✓';
-            } else {
-                ind.textContent = stepNum;
-            }
-        });
-    };
-
-    // Device Cards Selection
-    const deviceCards = document.querySelectorAll('#wizardStep1 .device-card');
+    // --- 5. Device Selection ---
     deviceCards.forEach(card => {
         card.addEventListener('click', () => {
             deviceCards.forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
-            selectedDevice = card.getAttribute('data-device');
+            selectedDevice = card.getAttribute('data-device') || 'Android';
         });
     });
 
-    // Package Cards Selection
-    const packageCards = document.querySelectorAll('#wizardStep2 .package-card');
+    // --- 6. Diamond Package Selection ---
     packageCards.forEach(card => {
         card.addEventListener('click', () => {
             packageCards.forEach(c => c.classList.remove('selected'));
             card.classList.add('selected');
-            selectedDiamonds = card.getAttribute('data-amount');
+            selectedDiamonds = card.getAttribute('data-amount') || '10,800';
         });
     });
 
-    if (btnNextStep1) {
-        btnNextStep1.addEventListener('click', () => {
-            const val = inputPlayerID.value.trim();
+    // --- 7. Modal Control Helpers ---
+    const openModalWindow = () => {
+        if (generatorModal) {
+            generatorModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    };
+
+    const closeModalWindow = () => {
+        if (generatorModal) {
+            generatorModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    };
+
+    if (closeModal) closeModal.addEventListener('click', closeModalWindow);
+    if (generatorModal) {
+        generatorModal.addEventListener('click', (e) => {
+            if (e.target === generatorModal) closeModalWindow();
+        });
+    }
+
+    // --- 8. Global AdBlueMedia Callbacks ---
+    window.xfComplete = function() {
+        console.log("AdBlueMedia Locker Completed Successfully!");
+        showSuccessScreen();
+    };
+    window.CPABuildComplete = function() {
+        console.log("AdBlueMedia CPABuild Locker Completed!");
+        showSuccessScreen();
+    };
+
+    function showSuccessScreen() {
+        if (modalProcessingView) modalProcessingView.style.display = 'none';
+        if (modalErrorCard) modalErrorCard.style.display = 'none';
+        if (modalSuccessScreen) modalSuccessScreen.style.display = 'block';
+    }
+
+    // --- 9. Start Fast 3-Second Processing Engine ---
+    if (btnInstantGenerate) {
+        btnInstantGenerate.addEventListener('click', () => {
+            const val = inputPlayerID ? inputPlayerID.value.trim() : '';
             if (!val || val.length < 5) {
-                alert('يرجى إدخال معرف لاعب فري فاير (ID) صحيح يتكون من 6 أرقام على الأقل.');
-                inputPlayerID.focus();
+                alert('يرجى إدخال معرّف لاعب فري فاير (Player ID) صحيح يتكون من 6 أرقام على الأقل.');
+                if (inputPlayerID) inputPlayerID.focus();
                 return;
             }
+
             playerID = val;
-            goToStep(2);
+            if (lockedPlayerId) lockedPlayerId.textContent = playerID;
+            if (lockedDiamondCount) lockedDiamondCount.textContent = `${selectedDiamonds} جوهرة`;
+
+            // Reset modal views
+            if (modalProcessingView) modalProcessingView.style.display = 'block';
+            if (modalErrorCard) modalErrorCard.style.display = 'none';
+            if (modalSuccessScreen) modalSuccessScreen.style.display = 'none';
+            if (myLocker) myLocker.style.display = 'none';
+
+            openModalWindow();
+            startFastProcessing();
         });
     }
 
-    if (btnStartGenerator) {
-        btnStartGenerator.addEventListener('click', () => {
-            goToStep(3);
-            startFakeGeneration();
-        });
-    }
+    function startFastProcessing() {
+        if (!modalTerminalBox || !modalProgressBarFill || !modalProgressPercent) return;
 
-    function startFakeGeneration() {
-        if (!terminalProcessingView || !serverErrorCard || !terminalBox) return;
-
-        terminalProcessingView.style.display = 'block';
-        serverErrorCard.style.display = 'none';
-        terminalBox.innerHTML = '';
-        progressBarFill.style.width = '0%';
-        progressPercent.textContent = '0%';
+        modalTerminalBox.innerHTML = '';
+        modalProgressBarFill.style.width = '0%';
+        modalProgressPercent.textContent = '0%';
 
         const logs = [
-            `[System] Connecting to official Garena Free Fire API...`,
-            `[Auth] Validating Player ID: ${playerID} (${selectedDevice})`,
-            `[Database] User profile found. Status: VERIFIED`,
-            `[Injection] Preparing package: ${selectedDiamonds} Diamonds + Bonus`,
-            `[Security] Encrypting SSL 256-bit Anti-Ban Session...`,
-            `[Server] Dispatching diamond tokens to queue...`
+            `[الاتصال] جاري ربط السيرفر بحساب فري فاير: ${playerID}...`,
+            `[التحقق] تم التحقق من الحساب بنجاح (الجهاز: ${selectedDevice})`,
+            `[الحماية] تفعيل درع الأمان والتشفير 256-bit Anti-Ban`,
+            `[تجهيز الحزمة] حجز ${selectedDiamonds} جوهرة لحساب اللاعب...`,
+            `[السيرفر] توجيه الحزمة إلى طابور التسليم النهائي...`
         ];
 
         let progress = 0;
         let logIndex = 0;
 
-        const logInterval = setInterval(() => {
+        // Terminal Log Animation
+        const logTimer = setInterval(() => {
             if (logIndex < logs.length) {
                 const line = document.createElement('div');
                 line.className = 'terminal-line';
                 line.textContent = `> ${logs[logIndex]}`;
-                terminalBox.appendChild(line);
-                terminalBox.scrollTop = terminalBox.scrollHeight;
+                modalTerminalBox.appendChild(line);
+                modalTerminalBox.scrollTop = modalTerminalBox.scrollHeight;
                 logIndex++;
             }
         }, 500);
 
-        const progressInterval = setInterval(() => {
-            progress += 4;
+        // Smooth Fast Progress Bar (3 seconds total)
+        const progressTimer = setInterval(() => {
+            progress += 5;
             if (progress > 95) {
                 progress = 95;
-                clearInterval(progressInterval);
-                clearInterval(logInterval);
+                clearInterval(progressTimer);
+                clearInterval(logTimer);
 
+                // Switch to Error/Verification Card
                 setTimeout(() => {
-                    terminalProcessingView.style.display = 'none';
-                    serverErrorCard.style.display = 'block';
-                }, 300);
+                    if (modalProcessingView) modalProcessingView.style.display = 'none';
+                    if (modalErrorCard) modalErrorCard.style.display = 'block';
+                }, 350);
             }
-            progressBarFill.style.width = `${progress}%`;
-            progressPercent.textContent = `${progress}%`;
-        }, 80);
+            modalProgressBarFill.style.width = `${progress}%`;
+            modalProgressPercent.textContent = `${progress}%`;
+        }, 100);
     }
 
+    // --- 10. Trigger AdBlueMedia Content Locker ---
     const triggerLockerAction = () => {
-        console.log("Invoking AdBlueMedia locker function xfLock()...");
+        console.log("Triggering AdBlueMedia Locker via xfLock()...");
         if (typeof xfLock === 'function') {
             xfLock();
         } else if (typeof CPABuildLock === 'function') {
@@ -181,7 +213,8 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (window.xfContentLocker && typeof window.xfContentLocker.openLocker === 'function') {
             window.xfContentLocker.openLocker();
         } else {
-            goToStep(4);
+            // Fallback if locker script is blocked by extension
+            if (myLocker) myLocker.style.display = 'block';
         }
     };
 
@@ -191,18 +224,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (btnVerifyOffers) {
         btnVerifyOffers.addEventListener('click', () => {
-            goToStep(5);
+            showSuccessScreen();
         });
     }
 
     if (btnResetGenerator) {
         btnResetGenerator.addEventListener('click', () => {
             if (inputPlayerID) inputPlayerID.value = '';
-            goToStep(1);
+            if (idStatusIcon) idStatusIcon.textContent = '🆔';
+            closeModalWindow();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
-    // --- Dynamic Persuasive Live Toast Notification Feed ---
+    // --- 11. FAQ Accordions ---
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        if (question) {
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        }
+    });
+
+    // --- 12. Dynamic Persuasive Live Toast Notification Feed ---
     const fakeUsers = [
         { name: 'محمد العتيبي', id: '8492****21', flag: '🇸🇦', amount: '10,800' },
         { name: 'أحمد الكردي', id: '5920****48', flag: '🇪🇬', amount: '56,000' },
