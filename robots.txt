@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://freefire.vip/sitemap.xml
 Sitemap: https://www.freefire.vip/sitemap.xml
