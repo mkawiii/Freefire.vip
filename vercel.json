@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.freefire.vip"
+        }
+      ],
+      "destination": "https://freefire.vip/:path*",
+      "permanent": true
+    }
+  ]
+}
