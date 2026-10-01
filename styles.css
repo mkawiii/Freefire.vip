@@ -3,7 +3,7 @@
    Light Mode Default + Dark Mode Switcher + 100% Mobile Responsive
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap');
+/* Google Fonts preconnected and loaded asynchronously via HTML head for 0ms render-blocking */
 
 /* --- LIGHT MODE VARIABLES (DEFAULT) --- */
 :root {
@@ -29,8 +29,8 @@
     --success-green: #16A34A;
     --success-green-bg: rgba(22, 163, 74, 0.1);
 
-    --font-heading: 'Cairo', sans-serif;
-    --font-body: 'Tajawal', sans-serif;
+    --font-heading: 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Arial, sans-serif;
+    --font-body: 'Tajawal', 'Cairo', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Arial, sans-serif;
 
     --radius-sm: 10px;
     --radius-md: 16px;
@@ -243,7 +243,7 @@ a { color: var(--primary-gold); text-decoration: none; transition: all 0.25s eas
 
 .hero-generator-section {
     padding: 6.5rem 0 3.5rem 0;
-    background: var(--hero-overlay), url('images/ff-bg-1.jpg') center/cover no-repeat fixed;
+    background: var(--hero-overlay), url('images/ff-bg-1.webp') center/cover no-repeat scroll;
     border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -345,6 +345,26 @@ a { color: var(--primary-gold); text-decoration: none; transition: all 0.25s eas
     outline: none;
     border-color: var(--primary-gold);
     box-shadow: 0 0 15px var(--primary-gold-bg);
+}
+
+.input-control.input-error-shake {
+    border-color: #DC2626 !important;
+    box-shadow: 0 0 12px rgba(220, 38, 38, 0.35) !important;
+    animation: shakeAnim 0.35s ease-in-out;
+}
+
+@keyframes shakeAnim {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-6px); }
+    40%, 80% { transform: translateX(6px); }
+}
+
+.id-error-msg {
+    color: #DC2626;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 0.45rem;
+    display: none;
 }
 
 .input-status-icon {
@@ -564,15 +584,17 @@ a { color: var(--primary-gold); text-decoration: none; transition: all 0.25s eas
 
 .card-img-wrap {
     height: 200px;
+    aspect-ratio: 16 / 9;
     position: relative;
     overflow: hidden;
-    background: #000;
+    background: #0F172A;
 }
 
 .card-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     transition: transform 0.5s ease;
 }
 

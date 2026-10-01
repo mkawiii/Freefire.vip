@@ -60,9 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnResetGenerator = document.getElementById('btnResetGenerator');
 
     // --- 4. Interactive Live Feedback on Player ID Input ---
+    const idErrorMsg = document.getElementById('idErrorFeedback');
     if (inputPlayerID && idStatusIcon) {
         inputPlayerID.addEventListener('input', () => {
             const val = inputPlayerID.value.trim();
+            if (idErrorMsg) idErrorMsg.style.display = 'none';
+            inputPlayerID.classList.remove('input-error-shake');
             if (val.length >= 6) {
                 idStatusIcon.textContent = '✅';
                 idStatusIcon.style.color = '#16A34A';
@@ -134,10 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
         btnInstantGenerate.addEventListener('click', () => {
             const val = inputPlayerID ? inputPlayerID.value.trim() : '';
             if (!val || val.length < 5) {
-                alert('يرجى إدخال معرّف لاعب فري فاير (Player ID) صحيح يتكون من 6 أرقام على الأقل.');
-                if (inputPlayerID) inputPlayerID.focus();
+                if (idErrorMsg) idErrorMsg.style.display = 'block';
+                if (inputPlayerID) {
+                    inputPlayerID.classList.add('input-error-shake');
+                    inputPlayerID.focus();
+                }
                 return;
             }
+            if (idErrorMsg) idErrorMsg.style.display = 'none';
 
             playerID = val;
             if (lockedPlayerId) lockedPlayerId.textContent = playerID;
@@ -179,7 +186,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 line.className = 'terminal-line';
                 line.textContent = `> ${logs[logIndex]}`;
                 modalTerminalBox.appendChild(line);
-                modalTerminalBox.scrollTop = modalTerminalBox.scrollHeight;
+                requestAnimationFrame(() => {
+                    modalTerminalBox.scrollTop = modalTerminalBox.scrollHeight;
+                });
                 logIndex++;
             }
         }, 500);
