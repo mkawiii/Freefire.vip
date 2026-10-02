@@ -127,8 +127,8 @@
             </ul>
 
             <div class="nav-actions">
-                <button class="theme-toggle-btn" id="themeToggleBtn">
-                    <span>🌙</span> <span>الوضع الداكن</span>
+                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="تبديل الوضع">
+                    <span class="theme-icon">🌙</span> <span class="theme-text">الوضع الداكن</span>
                 </button>
                 <a href="#generator" class="nav-btn">اشحن الآن ⚡</a>
             </div>
@@ -138,15 +138,15 @@
     <!-- Main Wrapper -->
     <main>
 
-        <!-- TOP HERO: Instant 1-Screen Easy Generator (Above the Fold) -->
+        <!-- TOP HERO: Instant 1-Screen Minimal Generator (Above the Fold) -->
         <section id="generator" class="hero-generator-section">
             <div class="container">
                 
                 <div class="hero-intro text-center">
-                    <div class="tag-badge">🔥 التحديث الجديد 2026 - المولد الأسرع والأسهل</div>
-                    <h1>شحن جواهر فري فاير مجاناً عن طريق الـ ID 💎</h1>
+                    <div class="tag-badge">🔥 التحديث الجديد 2026</div>
+                    <h1>شحن جواهر فري فاير مجاناً 💎</h1>
                     <p class="hero-desc">
-                        الموقع الرسمي <strong>Freefire.vip</strong> – أدخل معرّف حسابك واختر الحزمة المناسبة واشحن فوراً وبأمان 100% بدون كلمة سر!
+                        عبر الـ ID فقط • بدون كلمة سر • رسمي وآمن 100%
                     </p>
                 </div>
 
@@ -156,10 +156,10 @@
                     <div class="generator-status-strip">
                         <div class="status-online">
                             <span class="pulse-dot"></span>
-                            <span>السيرفر الرسمي متصل ونشط 🟢</span>
+                            <span>السيرفر نشط 🟢</span>
                         </div>
                         <div class="online-users">
-                            <span>👥 متواجد الآن: <strong>1,842 لاعب</strong></span>
+                            <span>👥 <strong>1,842</strong> لاعب متصل</span>
                         </div>
                     </div>
 
@@ -169,11 +169,11 @@
                         <!-- 1. Player ID Field -->
                         <div class="form-group">
                             <label class="form-label" for="playerIdInput">
-                                <span>1️⃣ معرّف الحساب في فري فاير (Player ID):</span>
+                                <span>معرّف الحساب (ID):</span>
                                 <span class="label-hint">بدون كلمة سر 🔒</span>
                             </label>
                             <div class="input-wrap">
-                                <input type="text" id="playerIdInput" class="input-control" placeholder="أدخل ID حسابك هنا (مثال: 1234567890)" maxlength="12" autocomplete="off" required>
+                                <input type="text" id="playerIdInput" class="input-control" placeholder="أدخل الآيدي هنا..." maxlength="12" autocomplete="off" required>
                                 <span class="input-status-icon" id="idStatusIcon">🆔</span>
                             </div>
                             <div id="idErrorFeedback" class="id-error-msg">⚠️ يرجى إدخال معرّف لاعب صحيح يتكون من 6 أرقام على الأقل.</div>
@@ -181,46 +181,42 @@
 
                         <!-- 2. Device Selection -->
                         <div class="form-group">
-                            <label class="form-label">2️⃣ اختر نوع جهازك المستخدم (Device):</label>
+                            <label class="form-label">نوع الجهاز:</label>
                             <div class="device-grid">
                                 <div class="device-card selected" data-device="Android">
-                                    <div class="device-icon">🤖</div>
-                                    <div class="device-title">أندرويد</div>
+                                    <span class="device-icon">🤖</span>
+                                    <span class="device-title">أندرويد</span>
                                 </div>
                                 <div class="device-card" data-device="iOS">
-                                    <div class="device-icon">🍎</div>
-                                    <div class="device-title">آيفون / iPad</div>
+                                    <span class="device-icon">🍎</span>
+                                    <span class="device-title">آيفون</span>
                                 </div>
                                 <div class="device-card" data-device="PC">
-                                    <div class="device-icon">💻</div>
-                                    <div class="device-title">كمبيوتر / محاكي</div>
+                                    <span class="device-icon">💻</span>
+                                    <span class="device-title">كمبيوتر</span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- 3. Diamond Amount Selection -->
                         <div class="form-group">
-                            <label class="form-label">3️⃣ اختر كمية الجواهر المراد استلامها:</label>
+                            <label class="form-label">اختر كمية الجواهر:</label>
                             <div class="packages-grid">
                                 <div class="package-card" data-amount="2,100">
-                                    <span class="package-badge">+200 مجاناً</span>
+                                    <span class="package-badge">+200</span>
                                     <div class="diamond-amount">💎 2,100</div>
-                                    <div class="package-subtitle">حزمة المبتدئين</div>
                                 </div>
                                 <div class="package-card" data-amount="5,600">
-                                    <span class="package-badge">+500 مجاناً</span>
+                                    <span class="package-badge">+500</span>
                                     <div class="diamond-amount">💎 5,600</div>
-                                    <div class="package-subtitle">الحزمة الشعبية 🔥</div>
                                 </div>
                                 <div class="package-card selected" data-amount="10,800">
-                                    <span class="package-badge popular">+1,000 مجاناً</span>
+                                    <span class="package-badge popular">الأكثر طلباً ⭐</span>
                                     <div class="diamond-amount">💎 10,800</div>
-                                    <div class="package-subtitle">الأكثر طلباً ⭐</div>
                                 </div>
                                 <div class="package-card" data-amount="56,000">
-                                    <span class="package-badge vip">+5,000 مجاناً</span>
+                                    <span class="package-badge vip">VIP 👑</span>
                                     <div class="diamond-amount">💎 56,000</div>
-                                    <div class="package-subtitle">حزمة اليوتيوبرز 👑</div>
                                 </div>
                             </div>
                         </div>
@@ -236,16 +232,16 @@
                     <!-- Trust Stats Bar -->
                     <div class="stats-mini-bar">
                         <div class="stat-mini">
-                            <strong>+1,480,000</strong>
+                            <strong>+1.4M</strong>
                             <span>لاعب استلم الجواهر</span>
                         </div>
                         <div class="stat-mini">
                             <strong>99.8%</strong>
-                            <span>نسبة نجاح فورية</span>
+                            <span>نسبة النجاح</span>
                         </div>
                         <div class="stat-mini">
                             <strong>100%</strong>
-                            <span>حماية ضد الحظر (Anti-Ban)</span>
+                            <span>حماية ضد الحظر</span>
                         </div>
                     </div>
 

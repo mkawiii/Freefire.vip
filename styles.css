@@ -1032,58 +1032,216 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .container { padding: 0 1rem; }
-    .navbar { padding: 0.65rem 0; }
-    .nav-links { display: none; }
-    .logo { font-size: 1.25rem; }
-    .logo-icon { font-size: 1.4rem; }
+    .container { padding: 0 0.85rem; }
     
-    .hero-generator-section { padding: 5.5rem 0 2.5rem 0; }
-    h1 { font-size: 1.65rem; line-height: 1.35; }
-    .hero-desc { font-size: 1rem; }
+    /* Clean Minimal Navbar */
+    .navbar { padding: 0.45rem 0; }
+    .nav-links { display: none; }
+    .nav-btn { display: none !important; } /* Fix: Hides overflowing orange button on mobile */
+    .logo { font-size: 1.15rem; gap: 0.4rem; }
+    .logo-icon { font-size: 1.25rem; }
+    .domain-name { font-size: 1.1rem; }
+    .vip-badge { font-size: 0.65rem; padding: 0.1rem 0.4rem; }
+    
+    .theme-toggle-btn {
+        padding: 0.35rem 0.65rem;
+        font-size: 0.85rem;
+        border-radius: 50px;
+    }
+    .theme-toggle-btn .theme-text {
+        display: none; /* Icon-only toggle on mobile for zero clutter */
+    }
 
+    /* Minimal Hero Section */
+    .hero-generator-section {
+        padding: 3.8rem 0 1.25rem 0; /* Clears fixed navbar with zero wasted space */
+    }
+    
+    .hero-intro {
+        margin-bottom: 0.75rem;
+    }
+    .tag-badge {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.65rem;
+        margin-bottom: 0.35rem;
+    }
+    h1 {
+        font-size: 1.35rem !important;
+        line-height: 1.25;
+        margin-bottom: 0.25rem;
+    }
+    .hero-desc {
+        font-size: 0.85rem;
+        margin-top: 0;
+        color: var(--text-muted);
+    }
+
+    /* Minimal 1-Screen Generator Card */
     .generator-main-card {
-        padding: 1.5rem 1.15rem;
+        padding: 1rem 0.85rem;
         border-radius: var(--radius-md);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
     }
 
     .generator-status-strip {
-        flex-direction: column;
-        gap: 0.35rem;
-        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.35rem 0.65rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.76rem;
+        border-radius: 8px;
+    }
+    .status-online { gap: 0.3rem; }
+    .pulse-dot { width: 7px; height: 7px; }
+
+    /* Form Fields - Mobile First */
+    .form-group {
+        margin-bottom: 0.75rem;
+    }
+    .form-label {
+        font-size: 0.85rem;
+        margin-bottom: 0.3rem;
+    }
+    .label-hint {
+        font-size: 0.72rem;
+    }
+    .input-control {
         padding: 0.6rem 0.85rem;
+        padding-left: 2.3rem;
+        font-size: 1.05rem;
+        height: 44px;
+        border-radius: 10px;
+    }
+    .input-status-icon {
+        left: 0.75rem;
+        font-size: 1.15rem;
+    }
+    .id-error-msg {
+        font-size: 0.78rem;
+        margin-top: 0.3rem;
+    }
+
+    /* Device Selector: 1 Slim Row */
+    .device-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.4rem;
+    }
+    .device-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        padding: 0.45rem 0.25rem;
+        border-radius: 10px;
+        min-height: 40px;
+    }
+    .device-icon {
+        font-size: 1.1rem;
+        margin-bottom: 0;
+    }
+    .device-title {
         font-size: 0.82rem;
     }
 
-    .device-grid { gap: 0.5rem; }
-    .device-card { padding: 0.65rem 0.25rem; }
-    .device-icon { font-size: 1.4rem; }
-    .device-title { font-size: 0.8rem; }
-
-    .packages-grid { grid-template-columns: 1fr; gap: 0.65rem; }
-    .package-card { padding: 0.95rem; }
-    .diamond-amount { font-size: 1.35rem; }
-
-    .btn-main-generate {
+    /* Diamond Packages: Tight 2x2 Grid */
+    .packages-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.45rem;
+    }
+    .package-card {
+        padding: 0.6rem 0.45rem;
+        border-radius: 12px;
+    }
+    .package-badge {
+        top: 4px;
+        left: 4px;
+        font-size: 0.62rem;
+        padding: 0.1rem 0.4rem;
+    }
+    .diamond-amount {
         font-size: 1.15rem;
-        padding: 1rem 1.25rem;
+        margin-top: 0.25rem;
     }
 
+    /* Thumb-friendly CTA */
+    .btn-main-generate {
+        font-size: 1.05rem;
+        padding: 0.85rem 1rem;
+        min-height: 48px;
+        margin-top: 0.35rem;
+        border-radius: 50px;
+    }
+
+    /* Trust Stats Mini Bar */
     .stats-mini-bar {
-        grid-template-columns: 1fr;
-        gap: 0.65rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding-top: 0.75rem;
+        margin-top: 0.75rem;
+        border-top: 1px solid var(--border-subtle);
+        gap: 0.25rem;
+    }
+    .stat-mini strong {
+        font-size: 0.92rem;
+        display: block;
+    }
+    .stat-mini span {
+        font-size: 0.68rem;
+        color: var(--text-muted);
+        display: block;
     }
 
-    .seo-section { padding: 3.5rem 0; }
-    .section-header { margin-bottom: 2rem; }
-    .section-header h2 { font-size: 1.45rem; }
+    /* SEO Sections Below Generator */
+    .seo-section { padding: 2.5rem 0; }
+    .section-header { margin-bottom: 1.5rem; }
+    .section-header h2 { font-size: 1.35rem; }
+    .card-img-wrap { height: 160px; }
 
-    .card-img-wrap { height: 180px; }
-
+    /* Non-intrusive Top Floating Toast (Zero screen blocking!) */
     .live-toast {
+        top: 56px;
+        bottom: auto;
         right: 12px;
         left: 12px;
-        bottom: 12px;
         max-width: none;
+        padding: 0.35rem 0.75rem;
+        border-radius: 50px;
+        pointer-events: none !important; /* Cannot block touches */
+        transform: translateY(-130%);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        z-index: 998;
+    }
+    .live-toast.active {
+        transform: translateY(0);
+    }
+    .toast-avatar-box {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+    .toast-verified-dot {
+        width: 10px;
+        height: 10px;
+        font-size: 0.45rem;
+    }
+    .toast-top-row { display: none; }
+    .toast-user-line { font-size: 0.75rem; font-weight: 700; }
+    .toast-diamonds-line { font-size: 0.72rem; }
+
+    /* Mobile Modal Sizing */
+    .generator-modal {
+        max-width: 94%;
+        max-height: 92vh;
+        overflow-y: auto;
+        margin: auto;
+    }
+    .modal-body {
+        padding: 1.25rem 1rem;
     }
 }

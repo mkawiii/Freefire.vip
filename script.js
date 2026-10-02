@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('ff_theme');
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-theme');
-            if (themeToggleBtn) themeToggleBtn.innerHTML = '<span>☀️</span> <span>الوضع الفاتح</span>';
+            if (themeToggleBtn) themeToggleBtn.innerHTML = '<span class="theme-icon">☀️</span> <span class="theme-text">الوضع الفاتح</span>';
         } else {
             document.body.classList.remove('dark-theme');
-            if (themeToggleBtn) themeToggleBtn.innerHTML = '<span>🌙</span> <span>الوضع الداكن</span>';
+            if (themeToggleBtn) themeToggleBtn.innerHTML = '<span class="theme-icon">🌙</span> <span class="theme-text">الوضع الداكن</span>';
         }
     };
 
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.toggle('dark-theme');
             const isDark = document.body.classList.contains('dark-theme');
             localStorage.setItem('ff_theme', isDark ? 'dark' : 'light');
-            themeToggleBtn.innerHTML = isDark ? '<span>☀️</span> <span>الوضع الفاتح</span>' : '<span>🌙</span> <span>الوضع الداكن</span>';
+            themeToggleBtn.innerHTML = isDark ? '<span class="theme-icon">☀️</span> <span class="theme-text">الوضع الفاتح</span>' : '<span class="theme-icon">🌙</span> <span class="theme-text">الوضع الداكن</span>';
         });
     }
 
